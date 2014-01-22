@@ -17,46 +17,7 @@
  *    - nordea (utf-8 not supported by API)
  *    - estcard (utf-8 not supported by API)
  *
- * ------------------ Common usage (payment):
- * <code>
- * try
- * {
- *    $oHandler = new PaymentHandler(); // class extending PaymentHandlerBase
- *    $oPaymentService = $oHandler->createService(PaymentHandler::SERVICE_PAYMENT);
- * }
- * catch (PaymentException $oException)
- * {
- *    // could not load adapters, faulty configuration etc..
- * }
- *
- * ------------------ To generate payment forms:
- * try
- * {
- *    $oTransaction = $oPaymentService->createTransaction($iTransactionID, $fSum);
- *    $aForms = $oPaymentService->generateForms($oTransaction);
- *    echo $aForms['seb']->__toString();
- * }
- * catch (PaymentException $oException)
- * {
- *    // errors with signature files, configuration parameters, etc
- * }
- *
- * ------------------ To receive server responses:
- * try
- * {
- *    $oResponse = $oPaymentService->handleResponse($_REQUEST);
- *    $bSuccess = $oResponse->isSuccessful();
- *  $oTransaction = $oResponse->getTransaction(); // see method documentation !!
- * }
- * catch (PaymentException $oException)
- * {
- *    // tampering with MACs, configuration errors etc..
- * }
- *
- * </code>
- *
- * @todo Implement authentication services, unicode problems with SEB
- *
+ * @see https://github.com/opus-online/yii2-payment/ for examples
  * @date 19.04.2012
  * @author Ivo Kund <ivo@opus.ee>
  */
