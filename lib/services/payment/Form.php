@@ -44,6 +44,14 @@ class Form extends Dataset
     /**
      * @return string
      */
+    public function getProviderTag()
+    {
+        return $this->getAdapter()->adapterTag;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return PaymentWidget::widget(['form' => $this]);
