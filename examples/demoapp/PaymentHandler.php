@@ -11,7 +11,7 @@ class PaymentHandler extends \opus\payment\PaymentHandlerBase
     /**
      * Returns the configuration array
      */
-    public function getConfiguration($key = null)
+    public function getConfiguration()
     {
         return [
             'common' => array(
