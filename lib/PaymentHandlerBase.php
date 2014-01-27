@@ -27,6 +27,8 @@ namespace opus\payment;
 use opus\payment\adapters\AbstractAdapter;
 use opus\payment\services\Payment;
 use opus\payment\services\payment\Form;
+use yii\base\Component;
+use yii\base\Object;
 use yii\helpers\ArrayHelper;
 use yii\web\Application;
 
@@ -36,7 +38,7 @@ use yii\web\Application;
  * @author Ivo Kund <ivo@opus.ee>
  * @package opus\payment
  */
-abstract class PaymentHandlerBase
+abstract class PaymentHandlerBase extends Object
 {
     /** @var string Estonian language */
     const LANGUAGE_ET = 'et';
@@ -67,25 +69,25 @@ abstract class PaymentHandlerBase
     /**
      * Create a new PaymentHandler object
      */
-    public function __construct()
+    public function __construct($params = [])
     {
-        $this->conf = $this->getConfiguration();
+        parent::__construct($params);
         $this->app = \Yii::$app;
-        $this->initAdapters();
     }
 
     /**
      * Returns the configuration array
      */
-    abstract public function getConfiguration($key = null);
+    abstract public function getConfiguration();
 
     /**
      * Initialize all enabled adapters (specified in the configuration)
      *
      * @throws Exception
      */
-    protected function initAdapters()
+    public function init()
     {
+        $this->conf = $this->getConfiguration();
         if (!isset($this->conf)) {
             throw new Exception("Adapter configuration not set, cannot initialize");
         }
