@@ -24,23 +24,27 @@ class PaymentWidget extends Widget
      * @var bool
      */
     public $debug = false;
+
     /**
-     * @var Form
+     * @var Form[]
      */
-    public $form;
+    public $forms;
 
     /**
      * @inheritdoc
      */
     public function run()
     {
-        echo $this->generateForm();
+        foreach ($this->forms as $form) {
+            echo $this->generateForm($form);
+        }
     }
 
     /**
+     * @param Form $form
      * @return string
      */
-    protected function beginForm()
+    protected function beginForm(Form $form)
     {
         return Html::beginTag(
             'form',
@@ -53,9 +57,10 @@ class PaymentWidget extends Widget
     }
 
     /**
+     * @param Form $form
      * @return string
      */
-    protected function generateElements()
+    protected function generateElements(Form $form)
     {
         $elements = '';
         foreach ($this->form as $param => $value)
@@ -66,9 +71,10 @@ class PaymentWidget extends Widget
     }
 
     /**
+     * @param Form $form
      * @return string
      */
-    protected function endForm()
+    protected function endForm(Form $form)
     {
         return Html::endTag('form');
     }
@@ -86,9 +92,10 @@ class PaymentWidget extends Widget
     }
 
     /**
+     * @param Form $form
      * @return string
      */
-    protected function generateSubmit()
+    protected function generateSubmit(Form $form)
     {
         return Html::submitButton($this->form->getProviderName());
     }
@@ -96,8 +103,8 @@ class PaymentWidget extends Widget
     /**
      * @return string
      */
-    private function generateForm()
+    private function generateForm(Form $form)
     {
-        return $this->beginForm() . $this->generateElements() . $this->generateSubmit() .  $this->endForm();
+        return $this->beginForm($form) . $this->generateElements($form) . $this->generateSubmit($form) .  $this->endForm($form);
     }
 }
