@@ -50,8 +50,8 @@ class PaymentWidget extends Widget
             'form',
             [
                 'method' => 'post',
-                'action' => $this->form->getAction(),
-                'accept-charset' => $this->form->getCharset()
+                'action' => $form->getAction(),
+                'accept-charset' => $form->getCharset()
             ]
         );
     }
@@ -63,9 +63,9 @@ class PaymentWidget extends Widget
     protected function generateElements(Form $form)
     {
         $elements = '';
-        foreach ($this->form as $param => $value)
+        foreach ($form as $param => $value)
         {
-            $elements .= $this->generateElement($param, $value) . "\n";
+            $elements .= $this->generateElement($param, $value, $form) . "\n";
         }
         return $elements;
     }
@@ -82,11 +82,12 @@ class PaymentWidget extends Widget
     /**
      * @param string $param
      * @param string $value
+     * @param Form $form
      * @return string
      */
-    protected function generateElement($param, $value)
+    protected function generateElement($param, $value, Form $form)
     {
-        $value = mb_convert_encoding($value, 'utf-8', $this->form->getCharset());
+        $value = mb_convert_encoding($value, 'utf-8', $form->getCharset());
         $method = $this->debug ? 'textInput' : 'hiddenInput';
         return Html::$method($param, $value);
     }
@@ -97,7 +98,7 @@ class PaymentWidget extends Widget
      */
     protected function generateSubmit(Form $form)
     {
-        return Html::submitButton($this->form->getProviderName());
+        return Html::submitButton($form->getProviderName());
     }
 
     /**
