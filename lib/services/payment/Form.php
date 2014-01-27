@@ -8,8 +8,6 @@
  */
 namespace opus\payment\services\payment;
 
-use opus\payment\widgets\PaymentWidget;
-
 /**
  * Class Form
  *
@@ -49,11 +47,4 @@ class Form extends Dataset
         return $this->getAdapter()->adapterTag;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return PaymentWidget::widget(['form' => $this]);
-    }
 }

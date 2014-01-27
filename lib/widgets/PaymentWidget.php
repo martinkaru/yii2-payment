@@ -8,6 +8,7 @@
 namespace opus\payment\widgets;
 
 use opus\payment\services\payment\Form;
+use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use Yii;
 use yii\helpers\Html;
@@ -35,6 +36,9 @@ class PaymentWidget extends Widget
      */
     public function run()
     {
+        if (!isset($this->forms)) {
+            throw new InvalidConfigException('Please specify the "forms" attribute for the widget');
+        }
         foreach ($this->forms as $form) {
             echo $this->generateForm($form);
         }
@@ -102,6 +106,7 @@ class PaymentWidget extends Widget
     }
 
     /**
+     * @param \opus\payment\services\payment\Form $form
      * @return string
      */
     private function generateForm(Form $form)

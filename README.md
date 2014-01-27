@@ -1,9 +1,13 @@
 yii2-payment
 ============
 
-Library to handle payments with Estonian banks.
+Library to handle payments with Estonian banks. Main features includes:
+- Payment service implemented with the following handlers: IPizza (Swedbank, SEB, LHV, Danske, Krediidipank), Estcard, Nordea
+- Object oriented and extensible code, you can easily add custom adapters
+- Generates payment forms from transaction objects
+- Handles bank post-back requests
 
-# Installation 
+## Installation
 Define in your `composer.json` the repository and required package. 
 ```json
 {
@@ -32,26 +36,47 @@ class MyPaymentHandler extends \opus\payment\PaymentHandlerBase
     public function getConfiguration($key = null)
     {
         return [
+            // common parameters for all adapters
             'common' => array(
                 'returnRoute' => 'bankController/return',
             ),
+            // adapter-specific parameters
             'adapters' => require 'demo-config.php',
         ];
     }
 }
-
 ```
-### Render all payment forms
-
+Example `demo-config.php` (includes only SEB configuration)
 ```php
+return [
+    'SEB' => [
+        'class' => '\opus\payment\adapters\Seb',
+        'serviceUrl' => 'https://pangalink.net/banklink/seb',
+        'pkcKeyPath' => 'SEB/private_key.pem',
+        'pkcCertPath' => 'SEB/cert.pem',
+        'params' => [
+            // add service parameters here
+            'VK_ACC' => '',
+            'VK_NAME' => '',
+            'VK_SND_ID' => '',
+        ],
+    ],
+];
+```
+
+### Render all payment forms
+In your
+```php
+// create the payment service
 $service = MyPaymentHandler::createPaymentService();
+
+// create a transaction object
 $transaction = $service->createTransaction(1234, 234, ['comment' => 'Comment']);
 
-foreach ($service->generateForms($transaction) as $key => $form) {
-    echo $form;
-    // this is the same as:
-    // echo \opus\payment\widgets\PaymentWidget::widget(['form' => $form]);
-}
+// render the widget
+echo \opus\payment\widgets\PaymentWidget::widget([
+    'forms' => $service->generateForms($transaction),
+]);
 
 ```
 #### Customize the payment form
@@ -59,8 +84,7 @@ The default implementation uses the widget `opus\payment\widgets\PaymentWidget`.
 ```php
 class MyPaymentWidget extends PaymentWidget
 {
-    protected function generateSubmit()
-    {
+    protected function generateSubmit(Form $form) {
         return Html::submitButton('MyCustomLabel');
     }
 }
@@ -68,10 +92,12 @@ class MyPaymentWidget extends PaymentWidget
 
 And then just render your customized widget instead of the default one (see the widget example above).
 
-### Receive return reques from the bank
+### Receive return requests from the bank
 ```php
 $service = PaymentHandler::createPaymentService();
 $response = $service->handleResponse($_REQUEST);
+
+// re-generate the transaction object from the response
 $transaction = $response->getTransaction();
 
 if ($response->isSuccessful()) {
