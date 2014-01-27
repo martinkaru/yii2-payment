@@ -101,7 +101,7 @@ $response = $service->handleResponse($_REQUEST);
 $transaction = $response->getTransaction();
 
 if ($response->isSuccessful()) {
-  // see the Transaction object for more details
-  echo $transaction->getTransactionId();
+	// see the Transaction object for more details
+	echo $transaction->getTransactionId();
 }
 ```
