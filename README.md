@@ -65,7 +65,6 @@ return [
 ```
 
 ### Render all payment forms
-In your
 ```php
 // create the payment service
 $service = MyPaymentHandler::createPaymentService();
