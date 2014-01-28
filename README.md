@@ -1,4 +1,4 @@
-yii2-payment
+PaymentHandler extension for Yii2
 ============
 
 Library to handle payments with Estonian banks. Main features includes:
