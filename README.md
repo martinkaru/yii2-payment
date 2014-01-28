@@ -7,6 +7,8 @@ Library to handle payments with Estonian banks. Main features includes:
 - Generates payment forms from transaction objects
 - Handles bank post-back requests
 
+This is a very basic "low-level" component for implementing payments. If you also need functionality for shopping baskets and orders, you might want to look at [opus-online/yii2-ecom](https://github.com/opus-online/yii2-ecom) extension.
+
 ## Installation
 Define in your `composer.json` the repository and required package. 
 ```json
