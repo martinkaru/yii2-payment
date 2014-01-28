@@ -25,7 +25,9 @@ Define in your `composer.json` the repository and required package.
 ```
 
 ## Usage
-Overwrite `PaymentHandlerBase` class and at least the method `getConfiguration`. Complement `demo-config.php` with your account details and locations of key and certificate files.  
+Overwrite `PaymentHandlerBase` class and at least the method `getConfiguration`. Complement the two configuration files
+with your account details and locations of key and certificate files. You can just copy the files from under `examples/config`.
+
 ```php
 class MyPaymentHandler extends \opus\payment\PaymentHandlerBase
 {
@@ -41,27 +43,10 @@ class MyPaymentHandler extends \opus\payment\PaymentHandlerBase
                 'returnRoute' => 'bankController/return',
             ),
             // adapter-specific parameters
-            'adapters' => require 'demo-config.php',
+            'adapters' => \yii\helpers\ArrayHelper::merge(require 'banks-default.php', require 'banks-local.php')
         ];
     }
 }
-```
-Example `demo-config.php` (includes only SEB configuration)
-```php
-return [
-    'SEB' => [
-        'class' => '\opus\payment\adapters\Seb',
-        'serviceUrl' => 'https://pangalink.net/banklink/seb',
-        'pkcKeyPath' => 'SEB/private_key.pem',
-        'pkcCertPath' => 'SEB/cert.pem',
-        'params' => [
-            // add service parameters here
-            'VK_ACC' => '',
-            'VK_NAME' => '',
-            'VK_SND_ID' => '',
-        ],
-    ],
-];
 ```
 
 ### Render all payment forms

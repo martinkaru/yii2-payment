@@ -1,4 +1,5 @@
 <?php
+use opus\payment\helpers\InstallHelper;
 
 /**
  *
@@ -7,6 +8,12 @@
  */
 class PaymentHandler extends \opus\payment\PaymentHandlerBase
 {
+    public function init()
+    {
+        InstallHelper::ensureConfigFile('banks-default.php', InstallHelper::CONF_DEFAULT);
+        InstallHelper::ensureConfigFile('banks-local.php', InstallHelper::CONF_LOCAL);
+        parent::init();
+    }
 
     /**
      * Returns the configuration array
@@ -18,7 +25,7 @@ class PaymentHandler extends \opus\payment\PaymentHandlerBase
                 'returnRoute' => '/ret.php',
                 'params' => [],
             ),
-            'adapters' => \yii\helpers\ArrayHelper::merge(require 'demo-config.php', @require 'local-config.php'),
+            'adapters' => \yii\helpers\ArrayHelper::merge(require 'banks-default.php', require 'banks-local.php'),
         ];
     }
 

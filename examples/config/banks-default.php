@@ -62,12 +62,12 @@ return [
         'serviceUrl' => 'https://pangalink.net/banklink/nordea',
         'params' => [
             'SOLOPMT_RCV_ID' => '',
-            'SOLOPMT_LANGUAGE' => '',
+            'SOLOPMT_LANGUAGE' => '4',
             'MAC_SECRET' => '',
         ],
     ],
 
-    'CREDIT_CARD' => [
+    'ESTCARD' => [
         'class' => '\opus\payment\adapters\Estcard',
         'serviceUrl' => 'https://pangalink.net/banklink/ec',
         'pkcKeyPath' => 'ECOM/private_key.pem',
