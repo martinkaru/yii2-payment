@@ -10,19 +10,12 @@ Library to handle payments with Estonian banks. Main features includes:
 This is a very basic "low-level" component for implementing payments. If you also need functionality for shopping baskets and orders, you might want to look at [opus-online/yii2-ecom](https://github.com/opus-online/yii2-ecom) extension.
 
 ## Installation
-Define in your `composer.json` the repository and required package. 
+Just define the required package in your `composer.json`. 
 ```json
 {
 	"require": {
 		"opus-online/yii2-payment": "*",
-	},
-
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/opus-online/yii2-payment"
-		}
-	]
+	}
 }
 ```
 
