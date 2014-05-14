@@ -9,15 +9,13 @@
 
 namespace opus\payment\services\payment;
 
-use yii\base\Arrayable;
-
 /**
  * Class Response
  *
  * @author Ivo Kund <ivo@opus.ee>
  * @package opus\payment\services\payment
  */
-class Response extends Dataset implements Arrayable
+class Response extends Dataset
 {
     /** @var boolean TRUE if response was successful */
     protected $isSuccessful = false;

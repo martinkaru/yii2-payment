@@ -18,7 +18,7 @@ use yii\base\Arrayable;
  * @author Ivo Kund <ivo@opus.ee>
  * @package opus\payment\services\payment
  */
-class Dataset implements \Iterator, \ArrayAccess, Arrayable
+class Dataset implements \Iterator, \ArrayAccess
 {
     /**
      * @var AbstractAdapter
