@@ -1,6 +1,5 @@
 {
 	"name": "opus-online/yii2-payment",
-	"version": "1.0-alpha2",
 	"type": "yii2-extension",
 	"description": "Library to handle payments with Estonian banks",
 	"minimum-stability": "dev",
