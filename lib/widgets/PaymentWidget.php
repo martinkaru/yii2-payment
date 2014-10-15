@@ -109,7 +109,7 @@ class PaymentWidget extends Widget
      * @param \opus\payment\services\payment\Form $form
      * @return string
      */
-    private function generateForm(Form $form)
+    protected function generateForm(Form $form)
     {
         return $this->beginForm($form) . $this->generateElements($form) . $this->generateSubmit($form) .  $this->endForm($form);
     }
