@@ -53,6 +53,10 @@ abstract class AbstractAdapter extends Object
      */
     public $returnRoute;
     /**
+     * @var string
+     */
+    public $cancelRoute;
+    /**
      * @var bool
      */
     public $enabled = true;
