@@ -170,6 +170,18 @@ abstract class AbstractAdapter extends Object
     }
 
     /**
+     * Getter for service URL
+     * @return string
+     */
+    public function getCancelUrl()
+    {
+        if (null === $this->cancelRoute) {
+            $this->cancelRoute = $this->returnRoute;
+        }
+        return $this->paymentHandler->createAbsoluteUrl($this->returnRoute);
+    }
+
+    /**
      * Format all added parameters as described in the parameter definition (cast to string, truncate length)
      *
      * @param Dataset $dataset
