@@ -82,7 +82,7 @@ abstract class AbstractAdapter extends Object
      *
      * @param array $params
      */
-    function __construct(array $params)
+    function __construct(array $params = [])
     {
         parent::__construct($params);
         $this->enabled && $this->validateConf();
